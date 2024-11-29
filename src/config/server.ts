@@ -1,12 +1,12 @@
-import express, { Request, Response } from "express";
-import { loadRoutes } from "./routes/RouteLoader";
+import express from "express";
+import { loadRoutes } from "../config/routes/RouteLoader";
 
 const app = express();
 
-// Middleware
+// Middleware para parsear JSON
 app.use(express.json());
 
-// Routes
+// Carregar e registrar todas as rotas
 app.use(loadRoutes());
 
 export default app;
