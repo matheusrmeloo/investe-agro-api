@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Route } from "../config/routes/Route";
 import { UserService } from "../services/UserService";
 import { isAuthenticated, isAdmin } from "../middleware/AuthMiddleware";
+import { successResponse, errorResponse } from "../utils/ResponseUtil";
 
 export default class UserController {
 	/**
@@ -16,9 +17,9 @@ export default class UserController {
 				email,
 				password,
 			);
-			return res.status(200).json({ user, token });
+			return successResponse(res, 200, { user, token });
 		} catch (error: any) {
-			return res.status(401).json({ error: error.message });
+			return errorResponse(res, 401, error.message);
 		}
 	}
 
@@ -31,9 +32,9 @@ export default class UserController {
 	public async register(req: Request, res: Response): Promise<Response> {
 		try {
 			const user = await UserService.registerUser(req.body);
-			return res.status(201).json(user);
+			return successResponse(res, 201, user);
 		} catch (error: any) {
-			return res.status(400).json({ error: error.message });
+			return errorResponse(res, 400, error.message);
 		}
 	}
 
@@ -46,9 +47,9 @@ export default class UserController {
 	public async getAllUsers(req: Request, res: Response): Promise<Response> {
 		try {
 			const users = await UserService.getAllUsers();
-			return res.status(200).json(users);
+			return successResponse(res, 200, users);
 		} catch (error: any) {
-			return res.status(500).json({ error: error.message });
+			return errorResponse(res, 500, error.message);
 		}
 	}
 
@@ -62,9 +63,9 @@ export default class UserController {
 		try {
 			const { id } = req.params;
 			const user = await UserService.getUserById(Number(id));
-			return res.status(200).json(user);
+			return successResponse(res, 200, user);
 		} catch (error: any) {
-			return res.status(404).json({ error: error.message });
+			return errorResponse(res, 404, error.message);
 		}
 	}
 
@@ -82,9 +83,9 @@ export default class UserController {
 				req.body,
 				req.user.role,
 			);
-			return res.status(200).json(updatedUser);
+			return successResponse(res, 200, updatedUser);
 		} catch (error: any) {
-			return res.status(400).json({ error: error.message });
+			return errorResponse(res, 400, error.message);
 		}
 	}
 
@@ -98,9 +99,9 @@ export default class UserController {
 		try {
 			const { id } = req.params;
 			await UserService.deleteUser(Number(id));
-			return res.status(204).send();
+			return successResponse(res, 204, null);
 		} catch (error: any) {
-			return res.status(400).json({ error: error.message });
+			return errorResponse(res, 400, error.message);
 		}
 	}
 }
