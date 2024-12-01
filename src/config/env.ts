@@ -10,4 +10,5 @@ export default {
 		password: process.env.DB_PASSWORD || "postgres",
 		name: process.env.DB_NAME || "app_db",
 	},
+	jwtSecret: process.env.JWT_SECRET || "your_jwt_secret_key",
 };
