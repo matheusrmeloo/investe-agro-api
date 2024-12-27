@@ -28,3 +28,6 @@ export const initializeDatabase = async (): Promise<void> => {
 		process.exit(1); // Encerrar o processo caso não consiga conectar
 	}
 };
+
+//migration command
+//yarn typeorm migration:generate src/config/database/migrations/AddObservations -- -d src/config/database/index.ts
