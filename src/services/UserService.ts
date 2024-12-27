@@ -63,7 +63,7 @@ export class UserService {
 	 * @returns Usuário atualizado.
 	 */
 	static async updateUser(
-		id: number,
+		id: string,
 		data: Partial<User>,
 		currentUserRole: string,
 	): Promise<User> {
@@ -99,7 +99,7 @@ export class UserService {
 	 * Remove um usuário.
 	 * @param id ID do usuário a ser removido.
 	 */
-	static async deleteUser(id: number): Promise<void> {
+	static async deleteUser(id: string): Promise<void> {
 		const user = await UserRepository.findOne({ where: { id } });
 		if (!user) throw new Error("Usuário não encontrado.");
 
@@ -119,7 +119,7 @@ export class UserService {
 	 * @param id ID do usuário.
 	 * @returns Usuário encontrado.
 	 */
-	static async getUserById(id: number): Promise<User> {
+	static async getUserById(id: string): Promise<User> {
 		const user = await UserRepository.findOne({ where: { id } });
 		if (!user) throw new Error("Usuário não encontrado.");
 		return user;

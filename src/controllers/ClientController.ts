@@ -10,10 +10,11 @@ export default class ClientController {
 	@Route("/clients", "get")
 	public async getAllClients(req: Request, res: Response): Promise<Response> {
 		try {
-			const { address, production } = req.query;
+			const { production, documentNumber, name } = req.query;
 			const clients = await ClientService.getAllClients({
-				address,
 				production,
+				documentNumber,
+				name,
 			});
 			return successResponse(res, 200, clients);
 		} catch (error: any) {
@@ -40,7 +41,7 @@ export default class ClientController {
 	@Route("/clients/:id", "get")
 	public async getClientById(req: Request, res: Response): Promise<Response> {
 		try {
-			const client = await ClientService.getClientById(Number(req.params.id));
+			const client = await ClientService.getClientById(req.params.id);
 			return successResponse(res, 200, client);
 		} catch (error: any) {
 			return errorResponse(res, 404, error.message);
@@ -53,10 +54,7 @@ export default class ClientController {
 	@Route("/clients/:id", "put")
 	public async updateClient(req: Request, res: Response): Promise<Response> {
 		try {
-			const client = await ClientService.updateClient(
-				Number(req.params.id),
-				req.body,
-			);
+			const client = await ClientService.updateClient(req.params.id, req.body);
 			return successResponse(res, 200, client);
 		} catch (error: any) {
 			return errorResponse(res, 400, error.message);
@@ -69,7 +67,7 @@ export default class ClientController {
 	@Route("/clients/:id", "delete")
 	public async deleteClient(req: Request, res: Response): Promise<Response> {
 		try {
-			await ClientService.deleteClient(Number(req.params.id));
+			await ClientService.deleteClient(req.params.id);
 			return successResponse(res, 204, null);
 		} catch (error: any) {
 			return errorResponse(res, 404, error.message);

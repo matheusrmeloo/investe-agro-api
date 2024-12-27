@@ -4,7 +4,7 @@ import { Address } from "./Address";
 @Entity("neighborhoods")
 export class Neighborhood {
 	@PrimaryGeneratedColumn("uuid")
-	id!: number;
+	id!: string;
 
 	@Column({ unique: true })
 	name!: string;

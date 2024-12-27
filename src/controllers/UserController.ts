@@ -62,7 +62,7 @@ export default class UserController {
 	public async getUserById(req: Request, res: Response): Promise<Response> {
 		try {
 			const { id } = req.params;
-			const user = await UserService.getUserById(Number(id));
+			const user = await UserService.getUserById(id);
 			return successResponse(res, 200, user);
 		} catch (error: any) {
 			return errorResponse(res, 404, error.message);
@@ -79,7 +79,7 @@ export default class UserController {
 		try {
 			const { id } = req.params;
 			const updatedUser = await UserService.updateUser(
-				Number(id),
+				id,
 				req.body,
 				req.user.role,
 			);
@@ -98,7 +98,7 @@ export default class UserController {
 	public async deleteUser(req: Request, res: Response): Promise<Response> {
 		try {
 			const { id } = req.params;
-			await UserService.deleteUser(Number(id));
+			await UserService.deleteUser(id);
 			return successResponse(res, 204, null);
 		} catch (error: any) {
 			return errorResponse(res, 400, error.message);

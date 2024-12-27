@@ -4,7 +4,7 @@ import { Client } from "./Client";
 @Entity("productions")
 export class Production {
 	@PrimaryGeneratedColumn("uuid")
-	id!: number;
+	id!: string;
 
 	@ManyToOne(() => Client, (client) => client.productions, {
 		onDelete: "CASCADE",

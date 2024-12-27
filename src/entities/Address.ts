@@ -4,7 +4,7 @@ import {
 	Column,
 	ManyToOne,
 	JoinColumn,
-	OneToOne,
+	OneToMany,
 } from "typeorm";
 import { Client } from "./Client";
 import { Neighborhood } from "./Neighborhood";
@@ -12,11 +12,7 @@ import { Neighborhood } from "./Neighborhood";
 @Entity("addresses")
 export class Address {
 	@PrimaryGeneratedColumn("uuid")
-	id!: number;
-
-	@OneToOne(() => Client, (client) => client.address, { onDelete: "CASCADE" })
-	@JoinColumn({ name: "client_id" })
-	client!: Client;
+	id!: string;
 
 	@Column()
 	cep!: string;
@@ -33,4 +29,7 @@ export class Address {
 	@ManyToOne(() => Neighborhood, (neighborhood) => neighborhood.addresses)
 	@JoinColumn({ name: "neighborhood_id" })
 	neighborhood!: Neighborhood;
+
+	@OneToMany(() => Client, (client) => client.address)
+	clients?: Client[];
 }

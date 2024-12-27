@@ -1,11 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import {
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	OneToMany,
+	ManyToOne,
+	JoinColumn,
+} from "typeorm";
 import { Spouse } from "./Spouse";
 import { Production } from "./Production";
+import { Address } from "./Address";
+import { Observation } from "./Observation";
 
 @Entity("clients")
 export class Client {
 	@PrimaryGeneratedColumn("uuid")
-	id!: number;
+	id!: string;
 
 	@Column({ type: "varchar", length: 255 })
 	name!: string;
@@ -18,9 +27,6 @@ export class Client {
 
 	@Column({ nullable: true })
 	email?: string;
-
-	@Column({ type: "text", nullable: true })
-	address?: string;
 
 	@Column({ type: "date", nullable: true })
 	birth_date?: Date;
@@ -35,4 +41,13 @@ export class Client {
 		cascade: true,
 	})
 	productions?: Production[];
+
+	@ManyToOne(() => Address, (address) => address.clients, { nullable: true })
+	@JoinColumn({ name: "address_id" })
+	address?: Address;
+
+	@OneToMany(() => Observation, (observation) => observation.client, {
+		cascade: true,
+	})
+	observations?: Observation[];
 }
