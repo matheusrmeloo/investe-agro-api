@@ -6,10 +6,10 @@ import {
 	UpdateDateColumn,
 } from "typeorm";
 
-@Entity()
+@Entity("user")
 export class User {
 	@PrimaryGeneratedColumn("uuid")
-	id!: number;
+	id!: string;
 
 	@Column({ type: "varchar", length: 255 }) // Especificando o tipo da coluna
 	name!: string;
@@ -25,4 +25,7 @@ export class User {
 
 	@UpdateDateColumn()
 	updated_at!: Date;
+
+	@Column({ type: "enum", enum: ["admin", "user"], default: "user" })
+	role!: "admin" | "user";
 }

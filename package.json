@@ -8,23 +8,28 @@
 		"start": "ts-node-dev --poll src/index.ts",
 		"test": "jest",
 		"typeorm": "typeorm-ts-node-commonjs",
-		"migration:generate": "typeorm migration:generate src/config/database/migrations/$NAME -- -d src/config/database/index.ts",
-		"migration:create": "yarn migration:generate --NAME=%1",
-		"migration:run": "yarn typeorm migration:run -- -d src/config/database/index.ts",
-		"migration:revert": "yarn typeorm migration:revert -- -d src/config/database/index.ts"
+		"migration:generate": "typeorm migration:generate -n",
+		"migration:create": "sh -c 'yarn migration:generate $1 -- -d src/config/database/index.ts'",
+		"migration:run": "yarn typeorm migration:run -d src/config/database/index.ts",
+		"migration:revert": "yarn typeorm migration:revert -d src/config/database/index.ts"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "MIT",
 	"description": "",
 	"dependencies": {
+		"@types/bcrypt": "^5.0.2",
 		"@types/express": "^5.0.0",
 		"@types/jest": "^29.5.14",
+		"@types/jsonwebtoken": "^9.0.7",
 		"@types/node": "^22.9.1",
+		"bcrypt": "^5.1.1",
+		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",
 		"express": "^4.21.1",
 		"investe-agro": "file:",
 		"jest": "^29.7.0",
+		"jsonwebtoken": "^9.0.2",
 		"pg": "^8.13.1",
 		"reflect-metadata": "^0.2.2",
 		"supertest": "^7.0.0",
@@ -35,6 +40,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.26.0",
 		"@babel/preset-env": "^7.26.0",
+		"@types/cors": "^2.8.17",
 		"babel-jest": "^29.7.0"
 	}
 }
