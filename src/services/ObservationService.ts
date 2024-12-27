@@ -21,7 +21,7 @@ export class ObservationService {
 
 		const [observations, total] = await ObservationRepository.findAndCount({
 			where: { client },
-			order: { created_at: "ASC" },
+			order: { created_at: "DESC" },
 			skip: (page - 1) * size,
 			take: size,
 		});
