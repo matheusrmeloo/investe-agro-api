@@ -1,9 +1,10 @@
-FROM node:18
+FROM node:20
 
 WORKDIR /app
 
 COPY package.json yarn.lock ./
 RUN yarn install
+RUN yarn migration:run
 
 COPY . .
 
