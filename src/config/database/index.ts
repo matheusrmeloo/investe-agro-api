@@ -22,6 +22,7 @@ export const AppDataSource = new DataSource({
 export const initializeDatabase = async (): Promise<void> => {
 	try {
 		await AppDataSource.initialize();
+		await AppDataSource.runMigrations();
 		console.log("Database connected successfully.");
 	} catch (error) {
 		console.error("Error connecting to the database:", error);
