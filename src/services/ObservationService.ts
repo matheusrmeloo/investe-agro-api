@@ -27,4 +27,13 @@ export class ObservationService {
 		});
 		return { observations, total };
 	}
+
+	public static async deleteObservation(id: string): Promise<void> {
+		const observation = await ObservationRepository.findOneBy({ id });
+		if (!observation) {
+			throw new Error("Observação não encontrada.");
+		}
+
+		await ObservationRepository.remove(observation);
+	}
 }

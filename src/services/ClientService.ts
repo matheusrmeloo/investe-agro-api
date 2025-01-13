@@ -25,6 +25,12 @@ export class ClientService {
 			});
 		}
 
+		if (filters.neighborhoodId) {
+			query.andWhere("neighborhood.id = :neighborhoodId", {
+				neighborhoodId: filters.neighborhoodId,
+			});
+		}
+
 		return await query.getMany();
 	}
 

@@ -10,11 +10,12 @@ export default class ClientController {
 	@Route("/clients", "get")
 	public async getAllClients(req: Request, res: Response): Promise<Response> {
 		try {
-			const { production, documentNumber, name } = req.query;
+			const { production, documentNumber, name, neighborhoodId } = req.query;
 			const clients = await ClientService.getAllClients({
 				production,
 				documentNumber,
 				name,
+				neighborhoodId,
 			});
 			return successResponse(res, 200, clients);
 		} catch (error: any) {

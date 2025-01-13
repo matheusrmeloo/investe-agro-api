@@ -11,7 +11,10 @@ export class Production {
 	})
 	client!: Client;
 
-	@Column({ type: "enum", enum: ["pecuaria", "milho", "outros"] })
+	@Column({
+		type: "enum",
+		enum: ["pecuaria", "milho", "mandioca", "fumo", "batata doce", "outros"],
+	})
 	type!: string;
 
 	@Column({ nullable: true })
