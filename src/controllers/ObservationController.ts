@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Route } from "../config/routes/Route";
 import { ObservationService } from "../services/ObservationService";
+import { isAuthenticated, isAdmin } from "../middleware/AuthMiddleware";
 import { successResponse, errorResponse } from "../utils/ResponseUtil";
 
 export default class ObservationController {
@@ -42,6 +43,19 @@ export default class ObservationController {
 				size,
 			);
 			return successResponse(res, 200, observations);
+		} catch (error: any) {
+			return errorResponse(res, 404, error.message);
+		}
+	}
+
+	@Route("/clients/:id/observations", "delete", [isAdmin])
+	public async deleteObservation(
+		req: Request,
+		res: Response,
+	): Promise<Response> {
+		try {
+			await ObservationService.deleteObservation(req.params.id);
+			return successResponse(res, 204, null);
 		} catch (error: any) {
 			return errorResponse(res, 404, error.message);
 		}
