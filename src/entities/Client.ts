@@ -10,6 +10,7 @@ import { Spouse } from "./Spouse";
 import { Production } from "./Production";
 import { Address } from "./Address";
 import { Observation } from "./Observation";
+import { Operation } from "./Operation";
 
 @Entity("clients")
 export class Client {
@@ -50,4 +51,18 @@ export class Client {
 		cascade: true,
 	})
 	observations?: Observation[];
+
+	@OneToMany(() => Operation, (operation) => operation.client, {
+		cascade: true,
+	})
+	operations?: Operation[];
+
+	@Column()
+	car?: Boolean;
+
+	@Column()
+	caf_dap?: Boolean;
+
+	@Column({ nullable: true })
+	caf_dap_number?: string;
 }

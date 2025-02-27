@@ -9,6 +9,9 @@ export interface CreateClientDTO {
 	email?: string;
 	birth_date?: Date;
 	social_status?: string;
+	caf_dap?: boolean;
+	car?: boolean;
+	caf_dap_number?: string;
 	spouses?: Spouse[];
 	productions?: Production[];
 	address?: Address;

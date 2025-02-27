@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
 import { Client } from "./Client";
+import { Operation } from "./Operation";
 
 @Entity("productions")
 export class Production {
@@ -13,10 +14,15 @@ export class Production {
 
 	@Column({
 		type: "enum",
-		enum: ["pecuaria", "milho", "mandioca", "fumo", "batata doce", "outros"],
+		enum: ["pecuaria", "milho", "mandioca", "fumo", "batata doce", "trator", "outros"],
 	})
 	type!: string;
 
 	@Column({ nullable: true })
 	custom_type?: string;
+
+	@OneToMany(() => Operation, (operation) => operation.production, {
+		cascade: true,
+	})
+	operations?: Operation[];
 }
