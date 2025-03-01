@@ -57,10 +57,10 @@ export class Client {
 	})
 	operations?: Operation[];
 
-	@Column()
+	@Column({ default: false })
 	car?: Boolean;
 
-	@Column()
+	@Column({ default: false })
 	caf_dap?: Boolean;
 
 	@Column({ nullable: true })
